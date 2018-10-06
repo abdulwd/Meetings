@@ -2,6 +2,7 @@ package com.abdulwd.meetings.di.modules;
 
 import com.abdulwd.meetings.di.PerActivity;
 import com.abdulwd.meetings.main.MainActivity;
+import com.abdulwd.meetings.schedule.ScheduleActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -17,4 +18,8 @@ public abstract class ActivityBindingModule {
   @PerActivity
   @ContributesAndroidInjector
   public abstract MainActivity provideMainActivity();
+
+  @PerActivity
+  @ContributesAndroidInjector
+  public abstract ScheduleActivity scheduleActivity();
 }

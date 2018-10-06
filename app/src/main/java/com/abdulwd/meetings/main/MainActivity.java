@@ -1,5 +1,6 @@
 package com.abdulwd.meetings.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import com.abdulwd.meetings.R;
 import com.abdulwd.meetings.base.BaseActivity;
 import com.abdulwd.meetings.data.remote.MeetingsService;
 import com.abdulwd.meetings.models.Slot;
+import com.abdulwd.meetings.schedule.ScheduleActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,7 +57,9 @@ public class MainActivity extends BaseActivity {
 
   @OnClick(R.id.activity_main_schedule_meeting)
   void scheduleMeeting() {
-
+    Intent intent = new Intent(this, ScheduleActivity.class);
+    intent.putExtra(ScheduleActivity.EXTRA_MEETING_DATE, networkDateFormat.format(calendar.getTime()));
+    startActivity(intent);
   }
 
   @Override
