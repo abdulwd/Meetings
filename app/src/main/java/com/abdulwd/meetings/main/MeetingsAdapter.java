@@ -12,18 +12,17 @@ import com.abdulwd.meetings.R;
 import com.abdulwd.meetings.models.Slot;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.abdulwd.meetings.utils.DateTimeUtils.TIME_FORMAT_12;
+import static com.abdulwd.meetings.utils.DateTimeUtils.TIME_FORMAT_24;
+
 public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Item> {
 
   private final List<Slot> slots;
-  private SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a", Locale.US);
-  private SimpleDateFormat parseFormat = new SimpleDateFormat("hh:mm", Locale.US);
 
   MeetingsAdapter(List<Slot> slots) {
     this.slots = slots;
@@ -46,7 +45,7 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Item> 
 
   private String getFormattedTime(String time) {
     try {
-      time = dateFormat.format(parseFormat.parse(time));
+      time = TIME_FORMAT_12.format(TIME_FORMAT_24.parse(time));
     } catch (ParseException e) {
       Log.e("MeetingsAdapter", "Unable to parse date", e);
     }

@@ -2,6 +2,9 @@ package com.abdulwd.meetings.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,11 +16,9 @@ import com.abdulwd.meetings.data.remote.MeetingsService;
 import com.abdulwd.meetings.models.Slot;
 import com.abdulwd.meetings.schedule.ScheduleActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -27,6 +28,9 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
+import static com.abdulwd.meetings.utils.DateTimeUtils.NETWORK_DATE_FORMAT;
+import static com.abdulwd.meetings.utils.DateTimeUtils.SIMPLE_DATE_FORMAT;
+
 public class MainActivity extends BaseActivity {
 
   private static final String TAG = "MainActivity";
@@ -34,11 +38,13 @@ public class MainActivity extends BaseActivity {
   TextView date;
   @BindView(R.id.recycler_view)
   RecyclerView recyclerView;
+  @BindView(R.id.activity_main_schedule_meeting)
+  AppCompatButton scheduleMeeting;
   @Inject
   MeetingsService meetingsService;
   private Calendar calendar = Calendar.getInstance();
-  private SimpleDateFormat networkDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-  private SimpleDateFormat toolbarDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+  private Calendar today = Calendar.getInstance();
+
   private List<Slot> slots = new ArrayList<>();
   private MeetingsAdapter meetingsAdapter;
   private Disposable disposable;
@@ -58,7 +64,7 @@ public class MainActivity extends BaseActivity {
   @OnClick(R.id.activity_main_schedule_meeting)
   void scheduleMeeting() {
     Intent intent = new Intent(this, ScheduleActivity.class);
-    intent.putExtra(ScheduleActivity.EXTRA_MEETING_DATE, networkDateFormat.format(calendar.getTime()));
+    intent.putExtra(ScheduleActivity.EXTRA_MEETING_DATE, NETWORK_DATE_FORMAT.format(calendar.getTime()));
     startActivity(intent);
   }
 
@@ -71,7 +77,7 @@ public class MainActivity extends BaseActivity {
     DividerItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
     itemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
     recyclerView.addItemDecoration(itemDecoration);
-    date.setText(toolbarDateFormat.format(calendar.getTime()));
+    date.setText(SIMPLE_DATE_FORMAT.format(calendar.getTime()));
   }
 
   @Override
@@ -81,9 +87,26 @@ public class MainActivity extends BaseActivity {
   }
 
   private void getSlot() {
-    meetingsService.getSlot(networkDateFormat.format(calendar.getTime()))
+    meetingsService.getSlot(NETWORK_DATE_FORMAT.format(calendar.getTime()))
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe(d -> MainActivity.this.date.setText(toolbarDateFormat.format(calendar.getTime())))
+        .doOnSubscribe(d -> {
+          date.setText(SIMPLE_DATE_FORMAT.format(calendar.getTime()));
+          calendar.clear(Calendar.HOUR_OF_DAY);
+          calendar.clear(Calendar.MINUTE);
+          calendar.clear(Calendar.SECOND);
+          calendar.clear(Calendar.MILLISECOND);
+          today.clear(Calendar.HOUR_OF_DAY);
+          today.clear(Calendar.MINUTE);
+          today.clear(Calendar.SECOND);
+          today.clear(Calendar.MILLISECOND);
+          if (calendar.before(today)) {
+            scheduleMeeting.setEnabled(false);
+            ViewCompat.setBackgroundTintList(scheduleMeeting, ContextCompat.getColorStateList(this, R.color.disabled));
+          } else {
+            scheduleMeeting.setEnabled(true);
+            ViewCompat.setBackgroundTintList(scheduleMeeting, ContextCompat.getColorStateList(this, R.color.colorPrimary));
+          }
+        })
         .doAfterTerminate(() -> meetingsAdapter.notifyDataSetChanged())
         .subscribe(new SingleObserver<List<Slot>>() {
           @Override
