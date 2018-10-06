@@ -1,6 +1,7 @@
 package com.abdulwd.meetings.main;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
@@ -34,6 +35,7 @@ import static com.abdulwd.meetings.utils.DateTimeUtils.SIMPLE_DATE_FORMAT;
 public class MainActivity extends BaseActivity {
 
   private static final String TAG = "MainActivity";
+  private static final String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
   @BindView(R.id.toolbar_date)
   TextView date;
   @BindView(R.id.recycler_view)
@@ -77,15 +79,24 @@ public class MainActivity extends BaseActivity {
     DividerItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
     itemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
     recyclerView.addItemDecoration(itemDecoration);
-    date.setText(SIMPLE_DATE_FORMAT.format(calendar.getTime()));
+    setToolbarDate();
     getSlot();
+  }
+
+  private void setToolbarDate() {
+    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+      String dayDate = days[calendar.get(Calendar.DAY_OF_WEEK) - 1] + ", " + SIMPLE_DATE_FORMAT.format(calendar.getTime());
+      date.setText(dayDate);
+    } else {
+      date.setText(SIMPLE_DATE_FORMAT.format(calendar.getTime()));
+    }
   }
 
   private void getSlot() {
     meetingsService.getSlot(NETWORK_DATE_FORMAT.format(calendar.getTime()))
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe(d -> {
-          date.setText(SIMPLE_DATE_FORMAT.format(calendar.getTime()));
+          setToolbarDate();
           calendar.clear(Calendar.HOUR_OF_DAY);
           calendar.clear(Calendar.MINUTE);
           calendar.clear(Calendar.SECOND);
