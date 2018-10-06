@@ -29,6 +29,7 @@ dependencies {
   implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
   implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
   implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+  implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
   compileOnly "javax.annotation:javax.annotation-api:$javaxAnnotationVersion"
   androidTestCompileOnly "javax.annotation:javax.annotation-api:$javaxAnnotationVersion"
   implementation "com.google.dagger:dagger:$daggerVersion"
