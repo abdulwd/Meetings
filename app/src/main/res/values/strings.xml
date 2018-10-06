@@ -10,4 +10,6 @@
   <string name="description">Description</string>
   <string name="end_time">End Time</string>
   <string name="start_time">Start Time</string>
+  <string name="no_slots_found">No slots found</string>
+  <string name="error_msg">Error retrieving slots</string>
 </resources>

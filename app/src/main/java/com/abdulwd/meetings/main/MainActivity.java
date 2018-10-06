@@ -9,6 +9,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.abdulwd.meetings.R;
@@ -42,6 +43,8 @@ public class MainActivity extends BaseActivity {
   RecyclerView recyclerView;
   @BindView(R.id.activity_main_schedule_meeting)
   AppCompatButton scheduleMeeting;
+  @BindView(R.id.no_slots)
+  TextView noSlots;
   @Inject
   MeetingsService meetingsService;
   private Calendar calendar = Calendar.getInstance();
@@ -97,6 +100,7 @@ public class MainActivity extends BaseActivity {
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe(d -> {
           setToolbarDate();
+          noSlots.setVisibility(View.GONE);
           calendar.clear(Calendar.HOUR_OF_DAY);
           calendar.clear(Calendar.MINUTE);
           calendar.clear(Calendar.SECOND);
@@ -124,11 +128,19 @@ public class MainActivity extends BaseActivity {
           @Override
           public void onSuccess(List<Slot> slots) {
             MainActivity.this.slots.addAll(slots);
+            if (slots.size() == 0) {
+              noSlots.setVisibility(View.VISIBLE);
+              noSlots.setText(R.string.no_slots_found);
+            } else {
+              noSlots.setVisibility(View.GONE);
+            }
           }
 
           @Override
           public void onError(Throwable e) {
             Log.e(TAG, "Unable to fetch the slots", e);
+            noSlots.setVisibility(View.VISIBLE);
+            noSlots.setText(R.string.error_msg);
           }
         });
   }
