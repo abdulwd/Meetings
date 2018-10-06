@@ -6,13 +6,100 @@
   android:layout_height="match_parent"
   tools:context=".main.MainActivity">
 
-  <TextView
-    android:layout_width="wrap_content"
+  <android.support.design.widget.AppBarLayout
+    android:id="@+id/app_bar"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Hello World!"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    android:theme="@style/AppTheme.AppBarOverlay">
 
+    <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="?attr/colorPrimary"
+      app:contentInsetEnd="0dp"
+      app:contentInsetLeft="0dp"
+      app:contentInsetRight="0dp"
+      app:contentInsetStart="0dp"
+      app:popupTheme="@style/AppTheme.PopupOverlay">
+
+      <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <TextView
+          android:id="@+id/toolbar_previous"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:drawableStart="@drawable/ic_keyboard_arrow_left_32dp"
+          android:drawableLeft="@drawable/ic_keyboard_arrow_left_32dp"
+          android:gravity="center"
+          android:text="@string/previous"
+          android:textColor="@android:color/white"
+          android:textSize="16sp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/toolbar_date"
+          app:layout_constraintHorizontal_chainStyle="spread_inside"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+          android:id="@+id/toolbar_date"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:textColor="@android:color/white"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          app:layout_constraintBottom_toBottomOf="@id/toolbar_previous"
+          app:layout_constraintEnd_toStartOf="@id/toolbar_next"
+          app:layout_constraintStart_toEndOf="@id/toolbar_previous"
+          app:layout_constraintTop_toTopOf="@id/toolbar_previous"
+          tools:text="06-10-2018" />
+
+        <TextView
+          android:id="@+id/toolbar_next"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:drawableEnd="@drawable/ic_keyboard_arrow_right_32dp"
+          android:drawableRight="@drawable/ic_keyboard_arrow_right_32dp"
+          android:gravity="center"
+          android:text="@string/next"
+          android:textColor="@android:color/white"
+          android:textSize="16sp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/toolbar_date" />
+      </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.Toolbar>
+  </android.support.design.widget.AppBarLayout>
+
+  <android.support.v7.widget.RecyclerView
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+    app:layout_constraintBottom_toTopOf="@id/activity_main_bottom_layout"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/app_bar" />
+
+  <android.support.constraint.ConstraintLayout
+    android:id="@+id/activity_main_bottom_layout"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:background="@color/offWhite"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <android.support.v7.widget.AppCompatButton
+      android:id="@+id/activity_main_schedule_meeting"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:text="@string/schedule_company_meeting"
+      android:textColor="@android:color/white"
+      app:backgroundTint="@color/colorPrimary" />
+  </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
