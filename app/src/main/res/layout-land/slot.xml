@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/offWhite">
+
+  <TextView
+    android:id="@+id/start_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginLeft="16dp"
+    app:layout_constraintBottom_toTopOf="@id/view1"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_chainStyle="packed"
+    tools:text="11:00AM" />
+
+  <View
+    android:id="@+id/view1"
+    android:layout_width="0dp"
+    android:layout_height="1dp"
+    android:background="#bdbdbd"
+    app:layout_constraintBottom_toTopOf="@id/end_date"
+    app:layout_constraintEnd_toEndOf="@id/start_date"
+    app:layout_constraintStart_toStartOf="@id/start_date"
+    app:layout_constraintTop_toBottomOf="@id/start_date" />
+
+  <TextView
+    android:id="@+id/end_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="@id/start_date"
+    app:layout_constraintTop_toBottomOf="@id/view1"
+    tools:text="12:00PM" />
+
+  <View
+    android:id="@+id/view"
+    android:layout_width="1dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp"
+    android:background="#bdbdbd"
+    app:layout_constraintBottom_toBottomOf="@id/attendees"
+    app:layout_constraintEnd_toStartOf="@id/description"
+    app:layout_constraintStart_toEndOf="@id/start_date"
+    app:layout_constraintTop_toTopOf="@id/description" />
+
+  <TextView
+    android:id="@+id/description"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:ellipsize="end"
+    android:maxLines="2"
+    android:minLines="2"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:textColor="@android:color/black"
+    android:textSize="14sp"
+    app:layout_constraintBottom_toTopOf="@id/attendees"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/view1"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_chainStyle="packed"
+    tools:text="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." />
+
+  <TextView
+    android:id="@+id/attendees"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:ellipsize="end"
+    android:singleLine="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="@id/description"
+    app:layout_constraintStart_toStartOf="@id/description"
+    app:layout_constraintTop_toBottomOf="@id/description"
+    tools:text="Attendee 1, Attendee 2, Attendee 3" />
+</android.support.constraint.ConstraintLayout>

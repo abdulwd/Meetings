@@ -78,11 +78,6 @@ public class MainActivity extends BaseActivity {
     itemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
     recyclerView.addItemDecoration(itemDecoration);
     date.setText(SIMPLE_DATE_FORMAT.format(calendar.getTime()));
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
     getSlot();
   }
 
@@ -128,8 +123,8 @@ public class MainActivity extends BaseActivity {
   }
 
   @Override
-  protected void onPause() {
-    super.onPause();
+  protected void onDestroy() {
+    super.onDestroy();
     if (disposable != null && !disposable.isDisposed()) disposable.dispose();
   }
 }
