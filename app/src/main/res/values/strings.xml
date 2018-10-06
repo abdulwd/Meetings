@@ -3,4 +3,5 @@
   <string name="next">NEXT</string>
   <string name="previous">PREV</string>
   <string name="schedule_company_meeting">SCHEDULE COMPANY MEETING</string>
+  <string name="separator">-</string>
 </resources>

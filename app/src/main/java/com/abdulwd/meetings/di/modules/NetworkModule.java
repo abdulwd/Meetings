@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.abdulwd.meetings.data.remote.MeetingsService;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import javax.inject.Singleton;
 
@@ -19,6 +20,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkModule {
 
   private static final String BASE_URL = "http://fathomless-shelf-5846.herokuapp.com/";
+
+  @Provides
+  @Singleton
+  Gson provideGson() {
+    return new GsonBuilder()
+        .setLenient()
+        .create();
+  }
 
   @Provides
   @Singleton

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/offWhite">
+
+  <TextView
+    android:id="@+id/start_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="8dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="11:00AM" />
+
+  <TextView
+    android:id="@+id/separator"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="6dp"
+    android:paddingEnd="6dp"
+    android:text="@string/separator"
+    app:layout_constraintStart_toEndOf="@id/start_date"
+    app:layout_constraintTop_toTopOf="@id/start_date" />
+
+  <TextView
+    android:id="@+id/end_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toEndOf="@id/separator"
+    app:layout_constraintTop_toTopOf="@id/start_date"
+    tools:text="12:00PM" />
+
+  <View
+    android:id="@+id/view"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:background="#bdbdbd"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/start_date" />
+
+  <TextView
+    android:id="@+id/description"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:ellipsize="end"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:singleLine="true"
+    android:textColor="@android:color/black"
+    android:textSize="14sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/view"
+    tools:text="Lorem Ipsum" />
+
+  <TextView
+    android:id="@+id/attendees"
+    android:layout_width="0dp"
+    android:layout_height="0dp" />
+</android.support.constraint.ConstraintLayout>
